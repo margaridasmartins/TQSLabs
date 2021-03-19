@@ -1,6 +1,0 @@
-criar maven project
-criar class TQSStack<T>
-criar os metodos (isEmpty, size, push, peek, pop, sem nada inicialmente)
-criar class testes (test->java->class) 
-criar tests para cada metodo
-
