@@ -34,7 +34,6 @@ public class BlazedemoTestTest {
   @Test
   public void blazedemoTest(FirefoxDriver driver) {
     driver.get("https://blazedemo.com/confirmation.php");
-    driver.manage().window().setSize(new Dimension(690, 691));
     driver.findElement(By.linkText("Travel The World")).click();
     driver.findElement(By.name("fromPort")).click();
     {
@@ -64,21 +63,12 @@ public class BlazedemoTestTest {
     driver.findElement(By.cssSelector("tr:nth-child(5) .btn")).click();
     driver.findElement(By.cssSelector(".checkbox")).click();
     driver.findElement(By.cssSelector(".btn-primary")).click();
-    assertTrue(driver.findElement(By.cssSelector(".checkbox")).isSelected());
     driver.findElement(By.linkText("home")).click();
     driver.findElement(By.id("email")).sendKeys("blazedemo.com@ff.pt");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("wwwww");
     driver.findElement(By.cssSelector(".btn-primary")).click();
     driver.findElement(By.cssSelector(".flex-center")).click();
-    assertThat(driver.findElement(By.cssSelector(".btn-primary")).getText(), is("Login"));
-    driver.findElement(By.linkText("Forgot Your Password?")).click();
-    driver.findElement(By.id("email")).click();
-    driver.findElement(By.id("email")).sendKeys("ddddd");
-    driver.findElement(By.cssSelector(".btn")).click();
-    driver.findElement(By.id("email")).click();
-    driver.findElement(By.id("email")).sendKeys("ddddd@dmdm.pt");
-    driver.findElement(By.cssSelector(".btn")).click();
-    driver.findElement(By.cssSelector("h1")).click();
+
   }
 }
