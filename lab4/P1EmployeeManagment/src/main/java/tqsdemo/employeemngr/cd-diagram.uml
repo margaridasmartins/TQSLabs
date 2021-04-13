@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="479.0">tqsdemo.employeemngr.employee.EmployeeRestController</node>
+    <node x="180.72023809523807" y="233.0">tqsdemo.employeemngr.employee.EmployeeService</node>
+    <node x="415.2261904761905" y="446.0">tqsdemo.employeemngr.employee.EmployeeServiceImpl</node>
+    <node x="463.7202380952381" y="276.0">tqsdemo.employeemngr.employee.EmployeeRepository</node>
+    <node x="382.16666666666663" y="0.0">tqsdemo.employeemngr.employee.Employee</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeServiceImpl" target="tqsdemo.employeemngr.employee.Employee">
+      <point x="88.66666666666669" y="-102.5" />
+      <point x="636.8928571428571" y="421.0" />
+      <point x="676.2202380952381" y="421.0" />
+      <point x="676.2202380952381" y="203.0" />
+      <point x="502.91666666666663" y="203.0" />
+      <point x="51.75" y="91.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeRestController" target="tqsdemo.employeemngr.employee.Employee">
+      <point x="-84.5" y="-69.5" />
+      <point x="84.5" y="421.0" />
+      <point x="154.3095238095238" y="421.0" />
+      <point x="154.3095238095238" y="203.0" />
+      <point x="399.41666666666663" y="203.0" />
+      <point x="-51.75" y="91.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeRestController" target="tqsdemo.employeemngr.employee.EmployeeService">
+      <point x="84.5" y="-69.5" />
+      <point x="253.5" y="421.0" />
+      <point x="243.47023809523807" y="421.0" />
+      <point x="-62.75" y="81.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeServiceImpl" target="tqsdemo.employeemngr.employee.EmployeeRepository">
+      <point x="0.0" y="-102.5" />
+      <point x="548.2261904761905" y="421.0" />
+      <point x="564.7202380952381" y="421.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeRepository" target="tqsdemo.employeemngr.employee.Employee">
+      <point x="0.0" y="-38.5" />
+      <point x="564.7202380952381" y="213.0" />
+      <point x="468.41666666666663" y="213.0" />
+      <point x="17.25" y="91.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeService" target="tqsdemo.employeemngr.employee.Employee">
+      <point x="0.0" y="-81.5" />
+      <point x="306.2202380952381" y="213.0" />
+      <point x="433.91666666666663" y="213.0" />
+      <point x="-17.25" y="91.5" />
+    </edge>
+    <edge source="tqsdemo.employeemngr.employee.EmployeeServiceImpl" target="tqsdemo.employeemngr.employee.EmployeeService">
+      <point x="-88.66666666666669" y="-102.5" />
+      <point x="459.55952380952374" y="421.0" />
+      <point x="368.9702380952381" y="421.0" />
+      <point x="62.75" y="81.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="246.0" y="435.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
