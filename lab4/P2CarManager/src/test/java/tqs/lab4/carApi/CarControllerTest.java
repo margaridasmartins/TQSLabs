@@ -34,7 +34,7 @@ public class CarControllerTest {
     private CarManagerService service;
 
     private Car car;
-
+    
     @BeforeEach
     public void setUp() throws Exception {
         car = new Car("opel","corsa");
@@ -71,12 +71,12 @@ public class CarControllerTest {
     
     @Test
     public void whenGetCar_thenReturnJson() throws Exception{
-        when(service.getCarDetails(Long.valueOf(1))).thenReturn(Optional.of(car));
+        when(service.getCarDetails(1L)).thenReturn(Optional.of(car));
 
         mvc.perform(get("/api/cars/1").contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(car)))
             .andExpect(status().isOk()).andExpect(jsonPath("$.maker", is(car.getMaker())))
             .andExpect(jsonPath("$.model", is(car.getModel())));
         
-        verify(service, times(1)).getCarDetails(Long.valueOf(1));
+        verify(service, times(1)).getCarDetails(1L);
     }
 }

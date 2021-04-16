@@ -1,7 +1,81 @@
 package tqs.lab4.carApi;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = CarApiApplication.class)
+@AutoConfigureMockMvc
+
+// switch AutoConfigureTestDatabase with TestPropertySource to use a real database
+// @TestPropertySource(locations = "application-integrationtest.properties")
+@AutoConfigureTestDatabase
 public class CarControllerTestIT {
 
-    
+    @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private CarRepository carRepository;
+
+    private Car car;
+
+    @BeforeEach
+    public void setUp() {
+        car = new Car("opel","corsa"); 
+    }
+
+    @AfterEach
+    public void resetDb() {
+        carRepository.deleteAll();
+    }
+
+    @Test
+    public void whenValidCar_thenCreateCar() throws IOException, Exception {
+        mvc.perform(post("/api/cars").contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(car)));
+
+        List<Car> car_found = carRepository.findAll();
+        assertThat(car_found).extracting(Car::getMaker).containsOnly("opel");
+    }
+
+    @Test
+    public void givenCars_whenGetAllCars_thenStatus200() throws IOException, Exception {
+        Car car1 = new Car("mercedes","vito");
+        Car car2 = new Car("ford","fiesta");
+
+        carRepository.save(car);
+        carRepository.save(car1);
+        carRepository.save(car2);
+
+        mvc.perform(get("/api/cars").contentType(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(3))))
+            .andExpect(jsonPath("$[0].maker", is("opel")))
+            .andExpect(jsonPath("$[1].maker", is("mercedes")))
+            .andExpect(jsonPath("$[2].maker", is("ford")));
+
+    }
+
 }
