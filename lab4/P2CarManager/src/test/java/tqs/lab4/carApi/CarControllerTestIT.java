@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.test.context.TestPropertySource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -28,8 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 
 // switch AutoConfigureTestDatabase with TestPropertySource to use a real database
-// @TestPropertySource(locations = "application-integrationtest.properties")
-@AutoConfigureTestDatabase
+@TestPropertySource(locations = "application-integrationtest.properties")
+// @AutoConfigureTestDatabase
 public class CarControllerTestIT {
 
     @Autowired
@@ -77,5 +78,18 @@ public class CarControllerTestIT {
             .andExpect(jsonPath("$[2].maker", is("ford")));
 
     }
+
+    @Test
+    public void whenValidIdCar_thenStatus200() throws IOException, Exception {
+        carRepository.save(car);
+
+
+        mvc.perform(get("/api/cars/1").contentType(MediaType.APPLICATION_JSON))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.maker", is(car.getMaker())));
+    }
+
 
 }
