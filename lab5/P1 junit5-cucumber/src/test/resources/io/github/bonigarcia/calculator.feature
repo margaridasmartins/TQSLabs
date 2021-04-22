@@ -11,6 +11,14 @@ Feature: Basic Arithmetic
     When I substract 7 to 2 
     Then the result is 5
 
+  Scenario: Multiplication
+    When I multiply 3 and 4
+    Then the result is 12
+
+  Scenario: Division
+    When I divide 20 to 5
+    Then the result is 4
+
   Scenario Outline: Several additions
     When I add <a> and <b>
     Then the result is <c>
@@ -19,3 +27,14 @@ Feature: Basic Arithmetic
     | a | b | c  |
     | 1 | 2 | 3  |
     | 3 | 7 | 10 |
+
+  Scenario Outline: Several multiplications
+    When I multiply <d> and <e>
+    Then the result is <f>
+
+  Examples: Single digits
+    | d | e | f  |
+    | 1 | 2 | 2  |
+    | 0 | 7 | 0  |
+    | 4 | 7 | 28 |
+  
