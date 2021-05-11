@@ -5,7 +5,9 @@ pipeline {
         maven 'maven 3.6.3'
     }
     stages {
-        
+        stage('change dir'){
+            dir('lab4/P2CarManager/"')
+        }
         stage('test java installation') {
             steps {
                 sh 'java -version'
@@ -14,6 +16,16 @@ pipeline {
         stage('test maven installation') {
             steps {
                 sh 'mvn -version'
+            }
+        }
+        stage('Install') {
+            steps {
+                sh "mvn clean install"
+            }
+            post {
+                always {
+                    junit '**/target/*-reports/TEST-*.xml'
+                }
             }
         }
     }
