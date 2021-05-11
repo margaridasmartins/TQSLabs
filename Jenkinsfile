@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/*-reports/TEST-*.xml'
+                    junit 'lab4/P2CarManager/**/target/*-reports/TEST-*.xml'
                 }
             }
         }
