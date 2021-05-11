@@ -18,8 +18,7 @@ pipeline {
         stage('Install') {
             steps {
                 dir('lab4/P2CarManager/'){
-                    sh "$PWD"
-                    sh "sudo mvn clean install"
+                    sh "mvn clean install"
                 }
             }
             post {
