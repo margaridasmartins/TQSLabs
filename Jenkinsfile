@@ -19,12 +19,12 @@ pipeline {
             steps {
                 dir('lab4/P2CarManager/'){
                     sh "$PWD"
-                    sh "mvn clean install"
+                    sh "sudo mvn clean install"
                 }
             }
             post {
                 always {
-                    junit 'lab4/P2CarManager/**/target/*-reports/TEST-*.xml'
+                    junit '**/target/*-reports/TEST-*.xml'
                 }
             }
         }
