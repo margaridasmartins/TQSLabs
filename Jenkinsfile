@@ -7,7 +7,9 @@ pipeline {
     stages {
         stage('change directory'){
             steps{
-                dir('lab4/P2CarManager')
+                dir('lab4/P2CarManager'){
+                    sh "$PWD"
+                }
             }
         }
         stage('test java installation') {
