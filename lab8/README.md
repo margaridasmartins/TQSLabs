@@ -4,7 +4,7 @@
 #### Default pulgins installed
 #### Admin user
 
-### e) create new job 
+### 1 e) create new job 
 ### lab4 ex2 used
 
 build sucessefull
@@ -15,3 +15,7 @@ Waiting for Jenkins to finish collecting data
 channel stopped
 Finished: SUCCESS
 -------------------------------
+
+### 2 j) pipeline
+### lab4 ex2 used
+
