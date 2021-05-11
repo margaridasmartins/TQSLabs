@@ -5,9 +5,6 @@ pipeline {
         maven 'maven 3.6.3'
     }
     stages {
-        stage('change dir'){
-            dir('lab4/P2CarManager/"')
-        }
         stage('test java installation') {
             steps {
                 sh 'java -version'
@@ -20,7 +17,10 @@ pipeline {
         }
         stage('Install') {
             steps {
-                sh "mvn clean install"
+                dir('lab4/P2CarManager/'){
+                    sh "$PWD"
+                    sh "mvn clean install"
+                }
             }
             post {
                 always {
