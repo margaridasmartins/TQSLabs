@@ -2,7 +2,6 @@ package tqs.assignment.cleanair;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Scanner;  
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,13 +22,13 @@ public class CleanAirApplication {
 	public 	Map<String,Map<String,String[]>> city_map() throws Exception{
 		try {
 			String line="";
-			Map<String,Map<String,String[]>> cityMap = new HashMap();
+			Map<String,Map<String,String[]>> cityMap = new HashMap<String,Map<String,String[]>>();
 			BufferedReader br = new BufferedReader(new FileReader("../pt.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] city = line.split(",");
 				Map<String,String[]> locationMap;
 				if (!cityMap.containsKey(city[5])){
-					locationMap = new HashMap();
+					locationMap = new HashMap<String,String[]>();
 					cityMap.put(city[5],locationMap);
 				}
 				else{
