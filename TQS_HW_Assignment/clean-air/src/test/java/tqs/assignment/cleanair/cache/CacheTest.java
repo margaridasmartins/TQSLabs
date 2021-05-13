@@ -1,4 +1,4 @@
-package tqs.assignment.cleanair;
+package tqs.assignment.cleanair.cache;
 
 import tqs.assignment.cleanair.cache.AirMetricCache;
 import tqs.assignment.cleanair.model.AirMetric;

@@ -51,44 +51,48 @@ public class AirMetricRestController {
 
     @GetMapping("/cities")
     @ResponseBody
-    public  Map<String,List<String>> districtMap(){
-        return districtMap;
+    public ResponseEntity  districtMap(){
+        return ResponseEntity.ok().body(districtMap);
     }
 
     @GetMapping("/cache/stats")
     @ResponseBody
-    public  Map<String,Integer> cacheAllStats(){
-        return cacheStatisticsService.getAllStats();
+    public  ResponseEntity cacheAllStats(){
+        return ResponseEntity.ok().body(cacheStatisticsService.getAllStats());
     }
 
     @GetMapping("/cache/stats/size")
     @ResponseBody
-    public  Integer cacheSize(){
-        return cacheStatisticsService.getCacheSize();
+    public  ResponseEntity  cacheSize(){
+        return ResponseEntity.ok().body(cacheStatisticsService.getCacheSize());
     }
 
     @GetMapping("/cache/stats/requests")
     @ResponseBody
-    public  Integer cacheRequests(){
-        return cacheStatisticsService.getCacheRequests();
+    public  ResponseEntity cacheRequests(){
+        return ResponseEntity.ok().body(cacheStatisticsService.getCacheRequests());
     }
 
     @GetMapping("/cache/stats/hits")
     @ResponseBody
-    public  Integer cacheHits(){
-        return cacheStatisticsService.getCacheHits();
+    public  ResponseEntity cacheHits(){
+        return ResponseEntity.ok().body(cacheStatisticsService.getCacheHits());
     }
 
     @GetMapping("/cache/stats/misses")
     @ResponseBody
-    public  Integer cacheMisses(){
-        return cacheStatisticsService.getCacheMisses();
+    public  ResponseEntity cacheMisses(){
+        return ResponseEntity.ok().body(cacheStatisticsService.getCacheMisses());
     }
 
     @GetMapping("/air/now/{city}")
     @ResponseBody
-    public  List<AirMetric> currentMetric(@PathVariable(value="city") String city) throws IOException, MalformedURLException{
-        return airMetricService.getCurrentAirMetricByLocation(city).get();
+    public ResponseEntity  currentMetric(@PathVariable(value="city") String city) throws IOException, MalformedURLException{
+        Optional<List<AirMetric>> airMetric = airMetricService.getCurrentAirMetricByLocation(city);
+        if(airMetric.isPresent()){
+            return ResponseEntity.ok().body(airMetric.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Could not find data for this city check spelling" );
     }
 
     @GetMapping("/air/period/day/{city}")
