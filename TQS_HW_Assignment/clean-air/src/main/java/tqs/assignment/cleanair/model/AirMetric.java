@@ -14,17 +14,19 @@ public class AirMetric {
     private double o3;
     private double so2;
     private double pm2_5;
+    private double pm10;
     private double nh3;
     private int aqi;
     private LocalDateTime mesureDate;
 
-    public AirMetric(double co, double no, double no2, double o3, double so2,double pm2_5, double nh3,int aqi, LocalDateTime mesureDate){
+    public AirMetric(double co, double no, double no2, double o3, double so2,double pm2_5,double pm10, double nh3,int aqi, LocalDateTime mesureDate){
         this.co=co;
         this.no=no;
         this.o3=o3;
         this.so2=so2;
         this.pm2_5=pm2_5;
         this.nh3=nh3;
+        this.pm10 = pm10;
         this.aqi=aqi;
         this.mesureDate=mesureDate;
     }
@@ -54,6 +56,10 @@ public class AirMetric {
 
     public double getPm2_5(){
         return this.pm2_5;
+    }
+
+    public double getPm10(){
+        return this.pm10;
     }
 
     public double getNh3(){
@@ -86,8 +92,8 @@ public class AirMetric {
         AirMetric aMetric = (AirMetric) o;
           
         // Compare the data members and return accordingly 
-        return aMetric.getAqi()==this.aqi && aMetric.getCo()==this.co && aMetric.getNo()==this.no
-                && aMetric.getNo2()==this.no2 && aMetric.getNh3()==this.nh3 && aMetric.getO3()==this.o3
+        return aMetric.getAqi()==this.aqi && aMetric.getCo()==this.co && aMetric.getNo()==this.no && aMetric.getNo2()==this.no2 
+                && aMetric.getNh3()==this.nh3 && aMetric.getO3()==this.o3 && aMetric.getPm10()==this.pm10
                 && aMetric.getSo2()==this.so2 && aMetric.getPm2_5()==this.pm2_5 && aMetric.getMesureDate()==this.mesureDate;
     }
 }

@@ -28,8 +28,8 @@ public class CacheTest {
         airMetricCache = new AirMetricCache();
 
         //populate cache
-        AirMetric airMetric = new AirMetric(2.0, 2.0,2.0,2.0,2.0,2.0,2.0,2, LocalDateTime.now());
-        AirMetric airMetric2 = new AirMetric(2.0, 2.0,2.0,2.0,2.0,2.0,2.0,2, LocalDateTime.now());
+        AirMetric airMetric = new AirMetric(2.0, 2.0,2.0,2.0,2.0,2.0,2.0,2.0,2, LocalDateTime.now());
+        AirMetric airMetric2 = new AirMetric(2.0, 2.0,2.0,2.0,2.0,2.0,2.0,2.0,2, LocalDateTime.now());
 
         airMetrics = new ArrayList<AirMetric>();
         airMetrics.add(airMetric);
@@ -46,14 +46,14 @@ public class CacheTest {
     public void testAddMetrics(){
         airMetricCache.addMetrics("Porto_22_99", airMetrics);
         assertTrue( airMetricCache.containsMetrics("Porto_22_99"), "addMetrics: added metrics not found in cache." );
-        assertTrue(airMetricCache.getStat("SIZE")==1, "addMetrics: added metrics size not 1" );
+        assertTrue(airMetricCache.getSize()==1, "addMetrics: added metrics size not 1" );
     }
 
     @Test
     public void testContainsMetricTTL(){
 
         assertTrue( !airMetricCache.containsMetrics("Porto_22_99"), "ContainsMetrics: metric should not exist" );
-        //TODO
+        //TODO Add TTL test
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CacheTest {
         airMetricCache.getMetrics("Porto_22_99");
         airMetricCache.getMetrics("Porto_22_99");
 
-        assertTrue(airMetricCache.getStat("REQUESTS")==3, "StatRequest wrong number of requests");
+        assertTrue(airMetricCache.getRequests()==3, "StatRequest wrong number of requests");
     }
 
     
