@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.HashMap;
 import org.apache.commons.lang3.tuple.Pair;
 import java.time.LocalDateTime;
@@ -18,19 +19,25 @@ import java.time.temporal.ChronoUnit;
 @Component
 public class AirMetricCache {
 
+    enum STATISTICS {
+        REQUESTS, SIZE, HITS, MISSES
+    }
+
     private Map<String,Pair<LocalDateTime,List<AirMetric>>> airMetricCache;
-    private Map<String, Integer> statistics;
+    private Map<STATISTICS, Integer> statistics;
 
     public AirMetricCache(){
         this.airMetricCache = new HashMap<String,Pair<LocalDateTime,List<AirMetric>>>();
-        this.statistics = new HashMap<String,Integer>();
-        this.statistics.put("REQUESTS",0);
-        this.statistics.put("SIZE",0);
+        this.statistics = new HashMap<STATISTICS,Integer>();
+        this.statistics.put(STATISTICS.REQUESTS,0);
+        this.statistics.put(STATISTICS.SIZE,0);
+        this.statistics.put(STATISTICS.HITS,0);
+        this.statistics.put(STATISTICS.MISSES,0);
     }
 
     public void addMetrics(String query,List<AirMetric> airMetrics){
         if(!this.containsMetrics(query)){
-            this.statistics.put("SIZE", this.statistics.get("SIZE")+1);
+            this.statistics.put(STATISTICS.SIZE, this.statistics.get(STATISTICS.SIZE)+1);
         }
         this.airMetricCache.put(query,Pair.of(LocalDateTime.now().plus(30,ChronoUnit.MINUTES ),airMetrics));
     }
@@ -41,25 +48,38 @@ public class AirMetricCache {
                 return true;
             }
             airMetricCache.remove(query);
-            this.statistics.put("SIZE", this.statistics.get("SIZE")-1);
+            this.statistics.put(STATISTICS.SIZE, this.statistics.get(STATISTICS.SIZE)-1);
         }
         return false;
     }
 
-    public List<AirMetric> getMetrics(String query) throws NoSuchElementException{
+    public Optional<List<AirMetric>> getMetrics(String query){
+        this.statistics.put(STATISTICS.REQUESTS, this.statistics.get(STATISTICS.REQUESTS)+1);
         if(this.containsMetrics(query)){
-            this.statistics.put("REQUESTS", this.statistics.get("REQUESTS")+1);
-            return airMetricCache.get(query).getValue();
+            this.statistics.put(STATISTICS.HITS, this.statistics.get(STATISTICS.HITS)+1);
+            return Optional.of(airMetricCache.get(query).getValue());
         }
-        throw new NoSuchElementException();
+        else{
+            this.statistics.put(STATISTICS.MISSES, this.statistics.get(STATISTICS.MISSES)+1);  
+            return Optional.empty();
+        }
     }
 
     public int getSize(){
-        return this.statistics.get("SIZE");
+        return this.statistics.get(STATISTICS.SIZE);
     }
 
     public int getRequests(){
-        return this.statistics.get("REQUESTS");
+        return this.statistics.get(STATISTICS.REQUESTS);
     }
+
+    public int getHits(){
+        return this.statistics.get(STATISTICS.HITS);
+    }
+
+    public int getMisses(){
+        return this.statistics.get(STATISTICS.MISSES);
+    }
+
 
 }

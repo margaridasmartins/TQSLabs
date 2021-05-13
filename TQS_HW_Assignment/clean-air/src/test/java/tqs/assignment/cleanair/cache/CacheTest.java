@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 
@@ -59,12 +60,12 @@ public class CacheTest {
     @Test
     public void testGetMetricValid(){
         airMetricCache.addMetrics("Porto_22_99", airMetrics);
-        assertEquals(airMetricCache.getMetrics("Porto_22_99"),airMetrics ,"getMetricsValid: get Metrics value wrong" );
+        assertEquals(airMetricCache.getMetrics("Porto_22_99").get(),airMetrics ,"getMetricsValid: get Metrics value wrong" );
     }
 
     @Test
     public void testGetMetricInexistent(){
-        assertThrows(NoSuchElementException.class, () -> airMetricCache.getMetrics("Porto_22_99"), "getMetricInexistent: get Metrics did not throw exception");
+        assertEquals(Optional.empty(), airMetricCache.getMetrics("Porto_22_99"), "getMetricInexistent: get Metrics did not return empty");
     }
 
     

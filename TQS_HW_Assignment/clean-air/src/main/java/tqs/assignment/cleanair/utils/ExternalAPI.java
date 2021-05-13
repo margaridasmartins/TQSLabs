@@ -23,13 +23,23 @@ import java.util.List;
 import java.util.TimeZone;
 import java.time.Instant;
 
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  * ExternalAPI
  */
 @Component
 public class ExternalAPI {
 
+    private final static Logger LOGGER =  Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
     public List<AirMetric> getMetricsFromAPI(String API_URL) throws IOException, MalformedURLException{
+
+        LOGGER.log(Level.INFO, String.format("Fetching from API with URL %s",API_URL));
+
         try {
             final URL url = new URL(API_URL);
             final URLConnection request = url.openConnection();

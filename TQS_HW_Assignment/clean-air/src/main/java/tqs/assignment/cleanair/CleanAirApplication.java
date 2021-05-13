@@ -1,9 +1,11 @@
 package tqs.assignment.cleanair;
 
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.beans.BeanProperty;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -49,7 +51,7 @@ public class CleanAirApplication {
 	public 	Map<String,List<String>> district_cities() throws Exception{
 		try {
 			String line="";
-			Map<String,List<String>> districtMap = new HashMap<String,List<String>>();
+			Map<String,List<String>> districtMap = new TreeMap<String,List<String>>();
 			BufferedReader br = new BufferedReader(new FileReader("../pt.csv"));
 			while ((line = br.readLine()) != null) {
 				String[] city = line.split(",");
@@ -62,6 +64,10 @@ public class CleanAirApplication {
 					districtMap.get(city[5]).add(city[0]);
 				}
 			}
+			for (String key : districtMap.keySet()){
+				Collections.sort(districtMap.get(key));
+			}
+
 			return districtMap;
 		} catch (Exception e) {
 			throw e;

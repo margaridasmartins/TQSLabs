@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-
+import java.util.Optional;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -73,11 +73,8 @@ public class AirMetricServiceTest {
 
     @Test
     public void whenGetCurrentByLocationAirMetricsInCache_thenCacheShoulBeConsulted() throws IOException, MalformedURLException{
-        
-        when(airMetricCache.containsMetrics("Porto_NOW")).thenReturn(true);
-        when(airMetricCache.getMetrics("Porto_NOW")).thenReturn(airMetric_single);
+        when(airMetricCache.getMetrics("Porto_NOW")).thenReturn(Optional.of(airMetric_single));
         assertEquals(airMetricService.getCurrentAirMetricByLocation("Porto").get(),airMetric_single, "AirMetric Service getting wrong cache Metric");
-        verify(airMetricCache, VerificationModeFactory.times(1)).containsMetrics("Porto_NOW");
         verify(airMetricCache, VerificationModeFactory.times(1)).getMetrics("Porto_NOW");
     }
 
@@ -85,10 +82,10 @@ public class AirMetricServiceTest {
     public void whenGetCurrentByLocationAirMetricsNotInCache_thenAPIShoulBeConsulted() throws IOException, MalformedURLException{
         String API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?lat=41.1495&lon=-8.6108&appid=f7ddcbe1a3d60790175e59092cd49713";
         
-        when(airMetricCache.containsMetrics("Porto_NOW")).thenReturn(false);
+        when(airMetricCache.getMetrics("Porto_NOW")).thenReturn(Optional.empty());
         when(extApi.getMetricsFromAPI(API_URL)).thenReturn(airMetric_single);
         assertEquals(airMetricService.getCurrentAirMetricByLocation("Porto").get(),airMetric_single, "AirMetric Service getting wrong api Metric");
-        verify(airMetricCache, VerificationModeFactory.times(1)).containsMetrics("Porto_NOW");
+        verify(airMetricCache, VerificationModeFactory.times(1)).getMetrics("Porto_NOW");
         verify(extApi, VerificationModeFactory.times(1)).getMetricsFromAPI(API_URL);
         verify(airMetricCache, VerificationModeFactory.times(1)).addMetrics("Porto_NOW", airMetric_single);
     }
@@ -100,10 +97,8 @@ public class AirMetricServiceTest {
 
     @Test
     public void whenGetAirMetricsByLocationAndTimeInCache_thenCacheShoulBeConsulted() throws IOException, MalformedURLException{
-        when(airMetricCache.containsMetrics("Porto_2_4")).thenReturn(true);
-        when(airMetricCache.getMetrics("Porto_2_4")).thenReturn(airMetrics);
+        when(airMetricCache.getMetrics("Porto_2_4")).thenReturn(Optional.of(airMetrics));
         assertEquals(airMetricService.getAirMetricsByLocationAndTime("Porto",2,4).get(),airMetrics, "AirMetric Service getting wrong cache Metric");
-        verify(airMetricCache, VerificationModeFactory.times(1)).containsMetrics("Porto_2_4");
         verify(airMetricCache, VerificationModeFactory.times(1)).getMetrics("Porto_2_4");
     }
 
@@ -111,10 +106,9 @@ public class AirMetricServiceTest {
     public void whenGetAirMetricsByLocationAndTimeNotInCache_thenAPIShoulBeConsulted() throws IOException, MalformedURLException{
         String API_URL = "http://api.openweathermap.org/data/2.5/air_pollution?history?lat=41.1495&lon=-8.6108&start=1606223802&end=1606482999&appid=f7ddcbe1a3d60790175e59092cd49713";
     
-        when(airMetricCache.containsMetrics("Porto_2_4")).thenReturn(false);
+        when(airMetricCache.getMetrics("Porto_2_4")).thenReturn(Optional.empty());
         when(extApi.getMetricsFromAPI(any())).thenReturn(airMetrics);
         assertEquals(airMetricService.getAirMetricsByLocationAndTime("Porto",2,4).get(),airMetrics, "AirMetric Service getting wrong api Metrics");
-        verify(airMetricCache, VerificationModeFactory.times(1)).containsMetrics("Porto_2_4");
         verify(extApi, VerificationModeFactory.times(1)).getMetricsFromAPI(any());
         verify(airMetricCache, VerificationModeFactory.times(1)).addMetrics("Porto_2_4", airMetrics);
     }
