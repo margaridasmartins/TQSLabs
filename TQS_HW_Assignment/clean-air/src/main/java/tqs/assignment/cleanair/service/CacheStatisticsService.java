@@ -15,11 +15,11 @@ public class CacheStatisticsService {
     private  AirMetricCache airMetricCache;
 
     public int getCacheSize(){
-        return 0;
+        return airMetricCache.getSize();
     }
 
     public int getCacheRequests(){
-        return 0;
+        return airMetricCache.getRequests();
     }
     
 }

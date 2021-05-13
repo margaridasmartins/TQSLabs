@@ -41,7 +41,7 @@ public class ExternalAPI {
     
             JsonObject rootobj = root.getAsJsonObject(); 
 
-            return getMetricsFromJson(rootobj); 
+            return this.getMetricsFromJson(rootobj); 
             
         } catch (Exception e) {
             throw e;
@@ -52,6 +52,7 @@ public class ExternalAPI {
         List<AirMetric> airMetrics = new ArrayList<AirMetric>();
 
         JsonArray airMetricList = rootobj.getAsJsonArray("list");
+
         for(JsonElement airM : airMetricList){
             JsonObject airMetric = airM.getAsJsonObject();
 

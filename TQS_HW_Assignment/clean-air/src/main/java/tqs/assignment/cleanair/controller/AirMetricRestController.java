@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
  * AirMetricRestController
  */
 
-@RestController("/api/v1/air")
+@RestController
+@RequestMapping("/api/v1")
 public class AirMetricRestController {
 
     @Autowired
-    public Map<String,Map<String,String[]>> cityMap;
+    public Map<String,String[]> cityMap;
 
-    @GetMapping("/teste")
-    @ResponseBody
-    public Map<String,Map<String,String[]>> teste(){
+    @GetMapping("/air")
+    public @ResponseBody Map<String,String[]> teste(){
         return cityMap;
     }
+
+
 }
