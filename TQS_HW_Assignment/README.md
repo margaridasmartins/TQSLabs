@@ -15,3 +15,7 @@
   -Dsonar.projectKey=tqs_hw \
   -Dsonar.host.url=http://127.0.0.1:9000 \
   -Dsonar.login=0a5cc7b6d9264fe7a0e157aca3c2e0c66c0389a2
+
+**sonar cloud** mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+
+ENV SONAR_TOKEN=c67bc9403aeaa25697d0457e33262864bad8ccb2

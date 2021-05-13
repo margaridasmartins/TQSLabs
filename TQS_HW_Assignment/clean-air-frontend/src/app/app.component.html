@@ -1,28 +1,28 @@
-<html>
-  <body>
-    <div class="container">
-      <div class="row">
-        <form>
-          <div class="form-group">
-            <lable>Distrito</lable>
-            <select class="form-control">
-
-            </select>
-          </div>
-          <div class="form-group">
-            <lable>Conselho</lable>
-            <select class="form-control">
-              
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="row">
-        <h4>Dados Atuais</h4>
-      </div>
-      <div class="row">
-        <h4>Dados Diarios</h4>
-      </div>
+  <div class="container">
+    <div class="row">
+      <form>
+        <div class="form-group">
+          <label>Distrito</label>
+          <select class="form-control" [(ngModel)]="distrito" >
+            <option *ngFor="let d of distritos" [ngValue]="d">
+              {{d}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Concelho</label>
+          <select class="form-control" [(ngModel)]="concelho">
+            <option *ngFor="let c of concelhos" [ngValue]="c">
+              {{c}}
+            </option>
+          </select>
+        </div>
+      </form>
     </div>
-  </body>
-</html>
+    <div class="row">
+      <h4>Dados Atuais</h4>
+    </div>
+    <div class="row">
+      <h4>Dados Diarios</h4>
+    </div>
+  </div>
