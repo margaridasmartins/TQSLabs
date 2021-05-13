@@ -79,7 +79,14 @@ public class CacheTest {
         assertTrue(airMetricCache.getRequests()==3, "StatRequest wrong number of requests");
     }
 
-    
+    @Test
+    public void testStatSize(){
+        airMetricCache.addMetrics("Porto_22_99", airMetrics);
+        airMetricCache.addMetrics("Porto_22_99", airMetrics);
+        airMetricCache.addMetrics("Porto_10_99", airMetrics);
+
+        assertTrue(airMetricCache.getSize()==2, "StatSize wrong size of cache");
+    }
 
 
 

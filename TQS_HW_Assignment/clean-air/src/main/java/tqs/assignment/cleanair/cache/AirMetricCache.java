@@ -41,6 +41,7 @@ public class AirMetricCache {
                 return true;
             }
             airMetricCache.remove(query);
+            this.statistics.put("SIZE", this.statistics.get("SIZE")-1);
         }
         return false;
     }

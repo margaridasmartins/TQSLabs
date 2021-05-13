@@ -56,7 +56,7 @@ public class ExternalAPI {
         for(JsonElement airM : airMetricList){
             JsonObject airMetric = airM.getAsJsonObject();
 
-            int aqi = Integer.getInteger(airMetric.get("main").getAsJsonObject().get("aqui").toString());
+            int aqi = Integer.parseInt(airMetric.get("main").getAsJsonObject().get("aqi").toString());
             JsonObject otherMetrics = airMetric.get("components").getAsJsonObject();
             double co = Double.parseDouble(otherMetrics.get("co").toString());
             double no = Double.parseDouble(otherMetrics.get("no").toString());
@@ -68,7 +68,7 @@ public class ExternalAPI {
             double nh3= Double.parseDouble(otherMetrics.get("nh3").toString());
             long unix_timestamp = Long.parseLong(airMetric.get("dt").toString());
 
-            LocalDateTime measureDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(unix_timestamp), TimeZone.getTimeZone("GMT+1").toZoneId()); 
+            LocalDateTime measureDate = LocalDateTime.ofInstant(Instant.ofEpochSecond(unix_timestamp), TimeZone.getTimeZone("GMT+1").toZoneId()); 
             airMetrics.add(new AirMetric(co,no,no2,o3,so2,pm2_5,pm10,nh3,aqi,measureDate));
         }
         return airMetrics;
