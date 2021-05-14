@@ -1,6 +1,7 @@
 package tqs.assignment.cleanair.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * AirMetric
@@ -96,4 +97,10 @@ public class AirMetric {
                 && aMetric.getNh3()==this.nh3 && aMetric.getO3()==this.o3 && aMetric.getPm10()==this.pm10
                 && aMetric.getSo2()==this.so2 && aMetric.getPm2_5()==this.pm2_5 && aMetric.getMesureDate()==this.mesureDate;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(co, no, no2, o3, so2, pm2_5, pm10, nh3, aqi, mesureDate);
+    }
+
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.lang.Thread;
 
 
 
@@ -51,10 +52,13 @@ public class CacheTest {
     }
 
     @Test
-    public void testContainsMetricTTL(){
+    public void testTTL() throws InterruptedException{
 
         assertTrue( !airMetricCache.containsMetrics("Porto_22_99"), "ContainsMetrics: metric should not exist" );
-        //TODO Add TTL test
+        airMetricCache.addMetrics("Porto_22_99", airMetrics);
+        assertTrue(airMetricCache.containsMetrics("Porto_22_99"), "ContainsMetrics: metric should  exist");
+        //Thread.sleep(310*1000);
+        //assertTrue(!airMetricCache.containsMetrics("Porto_22_99"), "ContainsMetrics: metric should  not exist");
     }
 
     @Test
@@ -77,7 +81,7 @@ public class CacheTest {
         airMetricCache.getMetrics("Porto_22_99");
         airMetricCache.getMetrics("Porto_22_99");
 
-        assertTrue(airMetricCache.getRequests()==3, "StatRequest wrong number of requests");
+        assertEquals(airMetricCache.getRequests(),3, "StatRequest wrong number of requests");
     }
 
     @Test
@@ -86,9 +90,29 @@ public class CacheTest {
         airMetricCache.addMetrics("Porto_22_99", airMetrics);
         airMetricCache.addMetrics("Porto_10_99", airMetrics);
 
-        assertTrue(airMetricCache.getSize()==2, "StatSize wrong size of cache");
+        assertEquals(airMetricCache.getSize(),2, "StatSize wrong size of cache");
     }
 
+    @Test
+    public void testStatMisses(){
+        airMetricCache.addMetrics("Porto_22_99", airMetrics);
+        airMetricCache.getMetrics("Porto_22_99");
+        airMetricCache.getMetrics("Porto_10_99");
+        airMetricCache.getMetrics("Porto_10_99");
+
+        assertEquals(airMetricCache.getMisses(),2, "StatSize wrong misses number");
+    }
+
+    @Test
+    public void testStatHits(){
+        airMetricCache.addMetrics("Porto_22_99", airMetrics);
+        airMetricCache.getMetrics("Porto_22_99");
+        airMetricCache.getMetrics("Porto_10_99");
+        airMetricCache.getMetrics("Porto_10_99");
+        airMetricCache.getMetrics("Porto_10_99");
+
+        assertEquals(airMetricCache.getHits(),1, "StatSize wrong hits number");
+    }
 
 
 }

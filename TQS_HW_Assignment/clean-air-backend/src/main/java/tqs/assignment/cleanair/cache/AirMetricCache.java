@@ -39,7 +39,7 @@ public class AirMetricCache {
         if(!this.containsMetrics(query)){
             this.statistics.put(STATISTICS.SIZE, this.statistics.get(STATISTICS.SIZE)+1);
         }
-        this.airMetricCache.put(query,Pair.of(LocalDateTime.now().plus(30,ChronoUnit.MINUTES ),airMetrics));
+        this.airMetricCache.put(query,Pair.of(LocalDateTime.now().plus(5,ChronoUnit.MINUTES ),airMetrics));
     }
 
     public boolean containsMetrics(String query){

@@ -25,41 +25,49 @@
       </div>
       <div class="col-2">
         <br>
-        <button type="submit" class="btn btn-primary" (click)="getData();">Pesquisar</button>
+        <button type="submit" class="btn btn-primary" name="Pesquisar" (click)="getData();">Pesquisar</button>
       </div>
     </div>
     <br><br>
     <div *ngIf="pesquisa;else elsePesquisa">
       <div class="row align-items-center justify-content-center h-100">
-        <h4>Dados Atuais</h4>
+        <h4 id="current_data">Dados Atuais</h4>
       </div>
       <div class="row">
         <div class="card w-100" [ngClass]="{'border-success': airMetric_atual.aqi <2 ,'border-warning': airMetric_atual.aqi <5 && airMetric_atual.aqi>1 ,'border-danger': airMetric_atual.aqi>4}" style="border-width: 3px;">
           <div class="card-body">
-            <h5 class="card-title">Indíce de Qualidade do Ar: {{airMetric_atual.aqi}} </h5>
+            <div class="row">
+              <div class="col-8">
+                <h5 class="card-title">Indíce de Qualidade do Ar: <b>{{airMetric_atual.aqi}} </b> </h5>
+              </div>
+              <div class="col-4">
+                <small><p> 1-Muito Bom | 2-Bom | 3-Razoável | 4-Mau | 5-Muito Mau</p></small>
+              </div>
+            </div>
+            
             <div class="row">
               <div class="col-3">
-                CO: {{airMetric_atual.co}}
+                CO: {{airMetric_atual.co}} μg/m3
               </div>
               <div class="col-3">
-                NO: {{airMetric_atual.no}}
+                NO: {{airMetric_atual.no}} μg/m3
               </div>
               <div class="col-3">
-                O3: {{airMetric_atual.o3}}
+                O3: {{airMetric_atual.o3}} μg/m3
               </div>
               <div class="col-3">
-                SO2: {{airMetric_atual.so2}}
+                SO2: {{airMetric_atual.so2}} μg/m3
               </div>
             </div>
             <div class="row">
               <div class="col-4">
-                NH3: {{airMetric_atual.nh3}}
+                NH3: {{airMetric_atual.nh3}} μg/m3
               </div>
               <div class="col-4">
-                Particulas (2.5): {{airMetric_atual.pm2_5}}
+                Particulas (2.5): {{airMetric_atual.pm2_5}} μg/m3
               </div>
               <div class="col-4">
-                Particulas (10): {{airMetric_atual.pm10}}
+                Particulas (10): {{airMetric_atual.pm10}} μg/m3
               </div>
             </div>
           </div>
@@ -67,7 +75,7 @@
       </div>
       <br><br>
       <div class="row align-items-center justify-content-center h-100">
-        <h4>Dados Diários {{current_date}}</h4>
+        <h4 id="daily_data">Dados Diários {{current_date}}</h4>
       </div>
       <div class="row" style="position:fixed ;left: 13%">
         <table class="table table-sm">
@@ -116,16 +124,16 @@
         <nav aria-label="Page navigation example" style="padding-top: 30%;">
           <ul class="pagination justify-content-center">
             <div *ngIf="current_day>-3;else elsePrevious">
-              <li class="page-item"> <a class="page-link" (click)="previousDay()"> Antes </a></li>
+              <li class="page-item"> <a class="page-link" id="Anterior" (click)="previousDay()"> Anterior </a></li>
             </div>
             <ng-template #elsePrevious>
-              <li class="page-item disabled"> <a class="page-link" > Antes </a></li>
+              <li class="page-item disabled"> <a class="page-link" id="Anterior" > Anterior </a></li>
             </ng-template>
             <div *ngIf="current_day<3;else elseNext">
-              <li class="page-item"> <a class="page-link" (click)="nextDay()"> Depois </a></li>
+              <li class="page-item"> <a class="page-link"  id="Seguinte" (click)="nextDay()"> Seguinte </a></li>
             </div>
             <ng-template #elseNext>
-              <li class="page-item disabled"> <a class="page-link" > Depois </a></li>
+              <li class="page-item disabled"> <a class="page-link" id="Seguinte" > Seguinte </a></li>
             </ng-template>
           </ul>
         </nav>
