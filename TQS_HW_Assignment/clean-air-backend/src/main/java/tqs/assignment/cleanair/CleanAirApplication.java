@@ -30,10 +30,14 @@ public class CleanAirApplication {
 	// Load File with Portuguese cities 
 	@Bean
 	public 	Map<String,String[]> city_map() throws Exception{
+		BufferedReader br=null;
 		try {
 			String line="";
 			Map<String,String[]> cityMap = new HashMap<String,String[]>();
-			BufferedReader br = new BufferedReader(new FileReader("../pt.csv"));
+			br = new BufferedReader(new FileReader("../pt.csv"));
+
+			br.readLine();
+
 			while ((line = br.readLine()) != null) {
 				String[] city = line.split(",");
 				String[] coord = new String[]{city[1],city[2]} ;
@@ -42,6 +46,8 @@ public class CleanAirApplication {
 			return cityMap;
 		} catch (Exception e) {
 			throw e;
+		} finally{
+			br.close();
 		}
 		
 	}
@@ -49,10 +55,14 @@ public class CleanAirApplication {
 	// Load File with Portuguese cities 
 	@Bean
 	public 	Map<String,List<String>> district_cities() throws Exception{
+		BufferedReader br=null;
 		try {
 			String line="";
 			Map<String,List<String>> districtMap = new TreeMap<String,List<String>>();
-			BufferedReader br = new BufferedReader(new FileReader("../pt.csv"));
+			br = new BufferedReader(new FileReader("../pt.csv"));
+			
+			br.readLine();
+
 			while ((line = br.readLine()) != null) {
 				String[] city = line.split(",");
 				if (!districtMap.containsKey(city[5])){
@@ -71,6 +81,8 @@ public class CleanAirApplication {
 			return districtMap;
 		} catch (Exception e) {
 			throw e;
+		} finally{
+			br.close();
 		}
 		
 	}

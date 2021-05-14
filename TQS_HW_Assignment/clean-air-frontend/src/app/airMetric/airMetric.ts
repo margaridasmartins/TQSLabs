@@ -7,10 +7,10 @@ export class AirMetrics{
     nh3: number;
     pm10: number;
     aqi: number;
-    mesuredate: Date;
+    mesureDate: string;
 
     constructor(co: number, no: number, o3: number, so2: number, pm2_5: number, nh3: number, pm10: number, 
-        aqi: number, mesuredate: Date) {
+        aqi: number, mesureDate: string) {
         this.co=co;
         this.no=no;
         this.o3=o3;
@@ -19,8 +19,7 @@ export class AirMetrics{
         this.nh3=nh3;
         this.pm10=pm10;
         this.aqi=aqi;
-        this.mesuredate=mesuredate;
+        this.mesureDate=mesureDate;
     }
-
 
 }

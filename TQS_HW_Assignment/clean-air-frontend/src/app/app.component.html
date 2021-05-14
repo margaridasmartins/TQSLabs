@@ -1,28 +1,138 @@
   <div class="container">
+    <br>
+    <div class="d-flex align-items-center justify-content-center h-100" >
+      <h1> CleanAir</h1>
+      <img src="../assets/image.png" alt="Logo" style="max-width: 50px;">
+    </div>
+
+    <br>
     <div class="row">
-      <form>
-        <div class="form-group">
-          <label>Distrito</label>
-          <select class="form-control" [(ngModel)]="distrito" >
-            <option *ngFor="let d of distritos" [ngValue]="d">
-              {{d}}
-            </option>
-          </select>
+      <div class="col-5">
+        Distrito:
+        <select class="form-control" [(ngModel)]="distrito" (change)="getConcelhos();" name="distrito" >
+          <option *ngFor="let d of distritos" [ngValue]="d">
+            {{d}}
+          </option>
+        </select>
+      </div>
+      <div class="col-5">
+        Concelho:
+        <select class="form-control" [(ngModel)]="concelho" name="concelho">
+          <option *ngFor="let c of concelhos" [ngValue]="c">
+            {{c}}
+          </option>
+        </select>
+      </div>
+      <div class="col-2">
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="getData();">Pesquisar</button>
+      </div>
+    </div>
+    <br><br>
+    <div *ngIf="pesquisa;else elsePesquisa">
+      <div class="row align-items-center justify-content-center h-100">
+        <h4>Dados Atuais</h4>
+      </div>
+      <div class="row">
+        <div class="card w-100" [ngClass]="{'border-success': airMetric_atual.aqi <2 ,'border-warning': airMetric_atual.aqi <5 && airMetric_atual.aqi>1 ,'border-danger': airMetric_atual.aqi>4}" style="border-width: 3px;">
+          <div class="card-body">
+            <h5 class="card-title">Indíce de Qualidade do Ar: {{airMetric_atual.aqi}} </h5>
+            <div class="row">
+              <div class="col-3">
+                CO: {{airMetric_atual.co}}
+              </div>
+              <div class="col-3">
+                NO: {{airMetric_atual.no}}
+              </div>
+              <div class="col-3">
+                O3: {{airMetric_atual.o3}}
+              </div>
+              <div class="col-3">
+                SO2: {{airMetric_atual.so2}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                NH3: {{airMetric_atual.nh3}}
+              </div>
+              <div class="col-4">
+                Particulas (2.5): {{airMetric_atual.pm2_5}}
+              </div>
+              <div class="col-4">
+                Particulas (10): {{airMetric_atual.pm10}}
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Concelho</label>
-          <select class="form-control" [(ngModel)]="concelho">
-            <option *ngFor="let c of concelhos" [ngValue]="c">
-              {{c}}
-            </option>
-          </select>
-        </div>
-      </form>
+      </div>
+      <br><br>
+      <div class="row align-items-center justify-content-center h-100">
+        <h4>Dados Diários {{current_date}}</h4>
+      </div>
+      <div class="row" style="position:fixed ;left: 13%">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" *ngFor="let m of airMetics" > {{ getDateFormat(m)}}h</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">IQA</th>
+              <th  *ngFor="let m of airMetics" [ngClass]="{'table-success': m.aqi <2 ,'table-warning': m.aqi <5 && m.aqi>1 ,'table-danger': m.aqi>4}"> {{m.aqi}}</th>
+            </tr>
+            <tr>
+              <th scope="row">CO</th>
+              <th  *ngFor="let m of airMetics"> {{m.co}}</th>
+            </tr>
+            <tr>
+              <th scope="row">NO</th>
+              <th  *ngFor="let m of airMetics"> {{m.no}}</th>
+            </tr>
+            <tr>
+              <th scope="row">O3</th>
+              <th  *ngFor="let m of airMetics"> {{m.o3}}</th>
+            </tr>
+            <tr>
+              <th scope="row">SO2</th>
+              <th  *ngFor="let m of airMetics"> {{m.so2}}</th>
+            </tr>
+            <tr>
+              <th scope="row">NH3</th>
+              <th  *ngFor="let m of airMetics"> {{m.nh3}}</th>
+            </tr>
+            <tr>
+              <th scope="row">PM 2.5</th>
+              <th  *ngFor="let m of airMetics"> {{m.pm2_5}}</th>
+            </tr>
+            <tr>
+              <th scope="row">PM 10</th>
+              <th  *ngFor="let m of airMetics"> {{m.pm10}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <nav aria-label="Page navigation example" style="padding-top: 30%;">
+          <ul class="pagination justify-content-center">
+            <div *ngIf="current_day>-3;else elsePrevious">
+              <li class="page-item"> <a class="page-link" (click)="previousDay()"> Antes </a></li>
+            </div>
+            <ng-template #elsePrevious>
+              <li class="page-item disabled"> <a class="page-link" > Antes </a></li>
+            </ng-template>
+            <div *ngIf="current_day<3;else elseNext">
+              <li class="page-item"> <a class="page-link" (click)="nextDay()"> Depois </a></li>
+            </div>
+            <ng-template #elseNext>
+              <li class="page-item disabled"> <a class="page-link" > Depois </a></li>
+            </ng-template>
+          </ul>
+        </nav>
     </div>
-    <div class="row">
-      <h4>Dados Atuais</h4>
-    </div>
-    <div class="row">
-      <h4>Dados Diarios</h4>
-    </div>
-  </div>
+    <ng-template #elsePesquisa>
+      <div class="row">
+        <h3> Choose a city!</h3>
+      </div>
+    </ng-template>
+</div>
