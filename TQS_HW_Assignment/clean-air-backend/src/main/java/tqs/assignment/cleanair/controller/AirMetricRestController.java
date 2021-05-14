@@ -53,37 +53,37 @@ public class AirMetricRestController {
 
     @GetMapping("/cities")
     @ResponseBody
-    public ResponseEntity  districtsMap(){
+    public ResponseEntity<Map<String,List<String>>> districtsMap(){
         return ResponseEntity.ok().body(districtMap);
     }
 
     @GetMapping("/cache/stats")
     @ResponseBody
-    public  ResponseEntity cacheAllStats(){
+    public  ResponseEntity<Map<String,Integer>> cacheAllStats(){
         return ResponseEntity.ok().body(cacheStatisticsService.getAllStats());
     }
 
     @GetMapping("/cache/stats/size")
     @ResponseBody
-    public  ResponseEntity  cacheSize(){
+    public  ResponseEntity<Integer>  cacheSize(){
         return ResponseEntity.ok().body(cacheStatisticsService.getCacheSize());
     }
 
     @GetMapping("/cache/stats/requests")
     @ResponseBody
-    public  ResponseEntity cacheRequests(){
+    public  ResponseEntity<Integer> cacheRequests(){
         return ResponseEntity.ok().body(cacheStatisticsService.getCacheRequests());
     }
 
     @GetMapping("/cache/stats/hits")
     @ResponseBody
-    public  ResponseEntity cacheHits(){
+    public  ResponseEntity<Integer> cacheHits(){
         return ResponseEntity.ok().body(cacheStatisticsService.getCacheHits());
     }
 
     @GetMapping("/cache/stats/misses")
     @ResponseBody
-    public  ResponseEntity cacheMisses(){
+    public  ResponseEntity<Integer> cacheMisses(){
         return ResponseEntity.ok().body(cacheStatisticsService.getCacheMisses());
     }
 

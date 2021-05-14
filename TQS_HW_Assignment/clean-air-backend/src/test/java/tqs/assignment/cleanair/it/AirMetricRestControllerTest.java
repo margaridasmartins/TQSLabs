@@ -88,7 +88,7 @@ public class AirMetricRestControllerTest {
     @Test 
     @Order(4)
     public void whenOrderDiffernt_thenReturnValuesInDifferentOrder() throws Exception{
-        MvcResult result = mvc.perform(get("/api/v1/air/period/day/Braga?order=DSC").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result = mvc.perform(get("/api/v1/air/period/day/Braga?order=DSC&sort=AQI").contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -97,7 +97,7 @@ public class AirMetricRestControllerTest {
             
         String q1 = result.getResponse().getContentAsString();
 
-        MvcResult result2 =mvc.perform(get("/api/v1/air/period/day/Braga?order=ASC").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result2 =mvc.perform(get("/api/v1/air/period/day/Braga?order=ASC&sort=AQI").contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -108,7 +108,7 @@ public class AirMetricRestControllerTest {
 
         assertTrue(!q2.equals(q1), "Different orders should present diferent results");
 
-        MvcResult result3 = mvc.perform(get("/api/v1/air/period/hour/Braga?order=DSC").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result3 = mvc.perform(get("/api/v1/air/period/hour/Braga?order=DSC&sort=AQI").contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -117,7 +117,7 @@ public class AirMetricRestControllerTest {
             
         String q3 = result3.getResponse().getContentAsString();
 
-        MvcResult result4 =mvc.perform(get("/api/v1/air/period/hour/Braga?order=ASC").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result4 =mvc.perform(get("/api/v1/air/period/hour/Braga?order=ASC&sort=AQI").contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -132,7 +132,7 @@ public class AirMetricRestControllerTest {
 
     @Order(5)
     public void whenSortDiffernt_thenReturnValuesInDifferentOrder() throws Exception{
-        MvcResult result = mvc.perform(get("/api/v1/air/period/day/Braga?sort=DATE").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result = mvc.perform(get("/api/v1/air/period/day/Braga?sort=DATE&order=DSC").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
@@ -140,7 +140,7 @@ public class AirMetricRestControllerTest {
             
         String q1 = result.getResponse().getContentAsString();
 
-        MvcResult result2 =mvc.perform(get("/api/v1/air/period/day/Braga?sort=AQI").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result2 =mvc.perform(get("/api/v1/air/period/day/Braga?sort=AQI&order=DSC").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
@@ -150,7 +150,7 @@ public class AirMetricRestControllerTest {
 
         assertTrue(!q2.equals(q1), "Different sorts should present diferent results");
 
-        MvcResult result3 = mvc.perform(get("/api/v1/air/period/hour/Braga?sort=DATE").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result3 = mvc.perform(get("/api/v1/air/period/hour/Braga?sort=DATE&order=DSC").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
@@ -158,7 +158,7 @@ public class AirMetricRestControllerTest {
             
         String q3 = result3.getResponse().getContentAsString();
 
-        MvcResult result4 =mvc.perform(get("/api/v1/air/period/hour/Braga?sort=AQI").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result4 =mvc.perform(get("/api/v1/air/period/hour/Braga?sort=AQI&order=DSC").contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
