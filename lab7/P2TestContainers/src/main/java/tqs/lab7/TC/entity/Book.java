@@ -33,6 +33,7 @@ public class Book {
         this.author=author;
         this.publishedDate=publishedDate;
     }
+    public Book(){}
 
 
 }
